@@ -1,15 +1,13 @@
 #pragma once
-#include "account.h"
 
 class Order {
 private:
-	account _account;
+	int account_payer;
+	int account_recip;
+	int sum;
 public:
 	Order();
-	Order(account acc);
+	Order(int p, int r, int s);
 	Order(const Order& order);
-	bool add_account();
-	bool delete_account();
 	void show_account();
-	~Order();
 };
