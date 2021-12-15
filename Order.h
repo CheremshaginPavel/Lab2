@@ -1,4 +1,7 @@
 #pragma once
+#include <iostream>
+
+using namespace std;
 
 class Order {
 private:
@@ -9,5 +12,8 @@ public:
 	Order();
 	Order(int p, int r, int s);
 	Order(const Order& order);
-	void show_account();
+	bool add_order();
+	void show_account(Order*, int, int);
+	bool search_acc(Order*, int);
+	void show_all_acc(Order*, int cnt);
 };

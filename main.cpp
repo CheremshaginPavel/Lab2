@@ -3,9 +3,10 @@
 int main()
 {
 	setlocale(LC_ALL, "Rus");
-	int n = 1;
-	Order* order = new Order[n];
-	menu();
-
+	int n = 0;
+	Order* order = nullptr;
+	menu(order, n);
+	delete[] order;
+	order = nullptr;
 	return 0;
 }
