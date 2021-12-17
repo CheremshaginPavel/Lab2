@@ -12,8 +12,10 @@ public:
 	Order();
 	Order(int p, int r, int s);
 	Order(const Order& order);
+	int get_payer();
+	int get_sum();
 	bool add_order();
-	void show_account(Order*, int, int);
-	bool search_acc(Order*, int);
+	bool show_account(Order*, int, int);
 	void show_all_acc(Order*, int cnt);
+	Order& operator=(const Order& right);
 };

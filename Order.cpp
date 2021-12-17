@@ -10,6 +10,10 @@ Order::Order(int p, int r, int s) {
 
 Order::Order(const Order& order) : account_payer(order.account_payer), account_recip(order.account_recip), sum(order.sum) {}
 
+int Order::get_payer() { return account_payer; }
+
+int Order::get_sum() { return sum; }
+
 bool Order::add_order() {
 	int answ;
 	system("cls");
@@ -27,9 +31,8 @@ bool Order::add_order() {
 		cin.get();
 		return false;
 	}
-	this->account_payer = answ;
+	account_payer = answ;
 	cout << "Введите номер расчетного счета получателя: ";
-	cin >> answ;
 	try {
 		cin >> answ;
 		if (!cin.good())
@@ -42,9 +45,8 @@ bool Order::add_order() {
 		cin.get();
 		return false;
 	}
-	this->account_recip = answ;
+	account_recip = answ;
 	cout << "Введите сумму перевода: ";
-	cin >> answ;
 	try {
 		cin >> answ;
 		if (!cin.good())
@@ -57,35 +59,46 @@ bool Order::add_order() {
 		cin.get();
 		return false;
 	}
-	this->sum = answ;
+	sum = answ;
+	cout << "Было снято со счета " << sum << "." << endl;
 	return true;
 }
 
-void Order::show_account(Order* order, int cnt, int pt) {
+bool Order::show_account(Order* order, int cnt, int pt) {
+	bool flag = false;
 	for (int i = 0; i < cnt; i++) {
 		if (order[i].account_payer == pt) {
 			cout << "Расчетный счет отправителя: " << order[i].account_payer << endl;
 			cout << "Расчетный счет получателя: " << order[i].account_recip << endl;
-			cout << "Сумма перевода: " << order[i].sum << endl;
-			system("pause");
-			break;
+			cout << "Сумма перевода: " << order[i].sum << endl << endl;
+			flag = true;
 		}
 	}
-}
-
-bool Order::search_acc(Order* order, int n) {
-	for (int i = 0; i < n; i++) {
-		if (order[i].account_payer == n)
-			return true;
+	if (!flag) {
+		cout << "Такого расчетного счета не существует!" << endl;
+		return false;
+	}
+	else {
+		return true;
 	}
 	return false;
 }
 
 void Order::show_all_acc(Order* order, int cnt) {
 	for (int i = 0; i < cnt; i++) {
-		cout << "№ " << i << endl;
+		cout << "№ " << (i + 1) << endl;
 		cout << "Расчетный счет отправителя: " << order[i].account_payer << endl;
 		cout << "Расчетный счет получателя: " << order[i].account_recip << endl;
 		cout << "Сумма перевода: " << order[i].sum << endl << endl;
 	}
+}
+
+Order& Order::operator=(const Order& right) {
+	if (this == &right) {
+		return *this;
+	}
+	account_payer = right.account_payer;
+	account_recip = right.account_recip;
+	sum = right.sum;
+	return *this;
 }
